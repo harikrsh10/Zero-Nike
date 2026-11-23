@@ -1,0 +1,44 @@
+:root {
+  --ink: #111111;
+  --ink-2: #555555;
+  --ink-3: #8a8a8a;
+  --line: #e2e2e2;
+  --soft: #f5f5f5;
+  --photo: #eeeeec;
+  --amber: #d97706;
+  --volt: #d4f05a;
+  --bg: #ffffff;
+  --gutter: 16px;
+  --sticky-h: 64px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
