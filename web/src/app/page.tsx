@@ -7,10 +7,11 @@ import { MODE_COOKIE, product, type SizeMode } from "@/data/product";
 type Search = Promise<{ [key: string]: string | string[] | undefined }>;
 
 export default function Page({ searchParams }: { searchParams: Search }) {
-  // The fallback is the same page with default settings, so the layout is
-  // identical while the per-request bits stream in: nothing shifts.
+  // The fallback is the same page laid out identically, so nothing shifts while
+  // the per-request bits stream in. Its size grid is empty and inert (ready=false),
+  // so she never reads a size number that later changes to a different one.
   return (
-    <Suspense fallback={<ProductPage prelaunch initialMode="M" />}>
+    <Suspense fallback={<ProductPage prelaunch initialMode="M" ready={false} />}>
       <ResolvedPage searchParams={searchParams} />
     </Suspense>
   );

@@ -1,4 +1,5 @@
-import sizesJson from "./sizes.json";
+// The size and stock list lives in the project folder, one level above web/.
+import sizesJson from "../../../Pegasus 43 size and stock list.json";
 
 /** Cookie that remembers her size system. Shared by server and client. */
 export const MODE_COOKIE = "pdp-size-mode";

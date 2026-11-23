@@ -1,44 +1,59 @@
-:root {
-  --ink: #111111;
-  --ink-2: #555555;
-  --ink-3: #8a8a8a;
-  --line: #e2e2e2;
-  --soft: #f5f5f5;
-  --photo: #eeeeec;
-  --amber: #d97706;
-  --volt: #d4f05a;
-  --bg: #ffffff;
-  --gutter: 16px;
-  --sticky-h: 64px;
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #111111;
+  --color-ink-2: #555555;
+  --color-ink-3: #8a8a8a;
+  --color-line: #e2e2e2;
+  --color-soft: #f5f5f5;
+  --color-photo: #eeeeec;
+  --color-low: #ea7a0c; /* the small orange "few left" dot */
+  --color-volt: #d4f05a;
+
+  --animate-fade: fade 160ms ease-out;
+  --animate-rise: rise 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes rise {
+    from {
+      transform: translateY(24px);
+      opacity: 0.6;
+    }
+  }
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* Sold-out size: grey fill with a thin diagonal line through the number. */
+@utility strike-diagonal {
+  background-image: linear-gradient(
+    to top right,
+    transparent calc(50% - 0.5px),
+    #c9c9c9 calc(50% - 0.5px),
+    #c9c9c9 calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-}
-
-button {
-  font: inherit;
-  color: inherit;
-}
-
-:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 2px;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-white text-ink antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ink;
+  }
 }
