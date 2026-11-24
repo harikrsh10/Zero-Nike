@@ -2,6 +2,8 @@
 
 A 375 px phone product page for the Nike Pegasus 43 (Black/White-Volt, $140, launches 10 Dec 2026).
 
+Notes page: https://harikrsh10.github.io/nike-pegasus-phone-page/
+
 - `web/` is the Next.js app. Run it with `npm --prefix web run dev -- -p 3043`.
 - `Pegasus 43 size and stock list.json` holds the 26 sizes and their stock.
 - `docs/plans/` has the page plan and the size selector plan.

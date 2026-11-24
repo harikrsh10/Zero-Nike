@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pegasus 43 Phone Page</title>
+<meta name="description" content="Nike Pegasus 43 phone product page: speed budget (score 95, size-grid shift 0 px, buttons 44 px), slow 4G trace with 0 layout shifts, culprit and fix table, and the key Claude Code prompt.">
+<style>
+  :root {
+    --bg: #ffffff; --text: #161616; --muted: #5c5c5c; --line: #e3e3e3;
+    --soft: #f5f5f4; --accent: #3f6212; --code: #f1f1ef;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121212; --text: #ececec; --muted: #a3a3a3; --line: #2e2e2e;
+      --soft: #1b1b1b; --accent: #bef264; --code: #222222;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121212; --text: #ececec; --muted: #a3a3a3; --line: #2e2e2e;
+    --soft: #1b1b1b; --accent: #bef264; --code: #222222;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 820px; margin: 0 auto; padding: 40px 16px 80px; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.01em; }
+  h2 { font-size: 21px; margin: 48px 0 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+  p, li { max-width: 68ch; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  a { color: var(--accent); }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; }
+  code { background: var(--code); padding: 1px 5px; border-radius: 4px; }
+  pre { background: var(--code); padding: 14px 16px; border-radius: 8px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { font-weight: 600; background: var(--soft); }
+  .result { background: var(--soft); border-left: 4px solid var(--accent); padding: 12px 16px; border-radius: 6px; }
+  .result strong { font-size: 18px; }
+  blockquote { margin: 12px 0; padding: 12px 16px; background: var(--soft); border-left: 4px solid var(--line); border-radius: 6px; }
+  figure { margin: 16px 0; }
+  figure img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  figcaption { color: var(--muted); font-size: 14px; margin-top: 6px; }
+  .links li { margin: 4px 0; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Nike Pegasus 43 phone page</h1>
+<p class="lede">A 375 px phone product page for the Nike Pegasus 43 (Black/White-Volt, $140, launches 10 Dec 2026), built in Next.js with Tailwind CSS. This page collects the speed budget, the slow-phone trace findings, the culprit and fix table, and the prompt notes.</p>
+
+<ul class="links">
+  <li>Repo: <a href="https://github.com/harikrsh10/nike-pegasus-phone-page">github.com/harikrsh10/nike-pegasus-phone-page</a></li>
+  <li>Page code: <a href="https://github.com/harikrsh10/nike-pegasus-phone-page/tree/main/web">web/</a> (main component: <a href="https://github.com/harikrsh10/nike-pegasus-phone-page/blob/main/web/src/components/ProductPage.tsx">ProductPage.tsx</a>)</li>
+  <li>Budget file: <a href="https://github.com/harikrsh10/nike-pegasus-phone-page/blob/main/speed-budget.json">speed-budget.json</a> at the repo root</li>
+  <li>Repo notes: <a href="https://github.com/harikrsh10/nike-pegasus-phone-page/blob/main/README.md">README.md</a></li>
+</ul>
+
+<h2>Speed budget</h2>
+<p><code>speed-budget.json</code> sits at the repo root. It has exactly the three keys from the Web Platform Slow 4G mobile check profile and no others. The profile lets a page owner set a value stricter than required, so the score minimum is raised from 90 to 95. The other two keys are at their required values; 0 is already the strictest grid shift.</p>
+<pre><code>{
+  "performance_score_min": 95,
+  "size_grid_shift_px_max": 0,
+  "size_button_min_px": 44
+}</code></pre>
+<div class="table-wrap"><table>
+  <thead><tr><th>Key</th><th>Value</th><th>Profile requires</th><th>Measured on this page</th></tr></thead>
+  <tbody>
+    <tr><td><code>performance_score_min</code></td><td>95</td><td>90 or higher</td><td>99 (local Lighthouse run)</td></tr>
+    <tr><td><code>size_grid_shift_px_max</code></td><td>0</td><td>0</td><td>0 px in every run</td></tr>
+    <tr><td><code>size_button_min_px</code></td><td>44</td><td>44 or higher</td><td>48 (every button is 62 × 48, sold-out ones included)</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Elements the check reads</h3>
+<div class="table-wrap"><table>
+  <thead><tr><th><code>data-testid</code></th><th>On</th><th>Count found</th></tr></thead>
+  <tbody>
+    <tr><td><code>size-grid</code></td><td>The size grid. The empty placeholder grid uses the same testid, and only one of the two is ever on the page.</td><td>1</td></tr>
+    <tr><td><code>size-button</code></td><td>Each in-stock or low-stock size</td><td>22</td></tr>
+    <tr><td><code>size-button-sold-out</code></td><td>Each sold-out size. These stay in the grid at full size.</td><td>4</td></tr>
+    <tr><td><code>main-photo</code></td><td>The first photo slide</td><td>1</td></tr>
+    <tr><td><code>price</code></td><td>The $140 price</td><td>1</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Slow-phone trace findings (24 Nov 2026)</h2>
+<div class="result">
+  <p><strong>0 layout shifts in every run.</strong><br>From first paint to fully loaded, the top of <code>size-grid</code> stayed at 440 px, so the grid moved 0 px.</p>
+</div>
+
+<h3>Settings</h3>
+<ul>
+  <li>Screen: 375 × 812 CSS px at 3x pixel density, with mobile on.</li>
+  <li>CPU: 4x slowdown.</li>
+  <li>Network: two sets of values, three fresh runs each, against the production build:
+    <ul>
+      <li>150 ms round trip, 1638.4 kbps (slow 4G, the values in the request).</li>
+      <li>562.5 ms delay per request, 1474.56 kbps (the profile's values for a real slowed browser).</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>What loads, in order</h3>
+<p>At first paint, the grid shows 26 empty grey boxes. About 300 ms later, the size numbers fill the same boxes, and nothing moves. Before the stylesheet arrives, the grid briefly measures 303 px down with no height. The browser draws nothing until the stylesheet loads, so that never reaches the screen.</p>
+
+<figure>
+  <img src="recordings/2026-11-24-slow-phone-load/filmstrip.png" width="1173" height="812" alt="Three frames of the page loading: blank, then the page with 26 empty grey size boxes, then the same boxes filled with size numbers. The red outline around the size grid is in the same place in both drawn frames.">
+  <figcaption>Left: nothing drawn yet. Middle: first paint, with the size grid as 26 empty boxes. Right: the size numbers fill the same boxes. The red outline marks the grid; outlines take no room on the page.</figcaption>
+</figure>
+
+<h3>Lighthouse</h3>
+<p>A local Lighthouse 12.8.2 mobile run with the profile's <code>lighthouse_settings</code> scored <strong>99</strong>: cumulative layout shift 0, first contentful paint 0.8 s, largest contentful paint 2.0 s. That run was on the production build on a local machine, not the live Vercel page.</p>
+
+<h3>Recording files</h3>
+<ul class="links">
+  <li><a href="recordings/2026-11-24-slow-phone-load/page-load-4x-slow-motion.mp4">Page load, 4x slow motion (MP4)</a></li>
+  <li><a href="recordings/2026-11-24-slow-phone-load/page-load-real-speed.mp4">Page load, real speed (MP4)</a></li>
+  <li><a href="recordings/2026-11-24-slow-phone-load/trace.json">trace.json</a>, which opens in Chrome DevTools → Performance</li>
+  <li><a href="recordings/2026-11-24-slow-phone-load/results.json">results.json</a>, with every run and the Lighthouse numbers</li>
+  <li><a href="recordings/2026-11-24-slow-phone-load/record.mjs">record.mjs</a>, the script that made the recording</li>
+</ul>
+
+<h2>What could push the size grid down, and the fix in place</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>What could load late and push the grid</th><th>Watched as</th><th>Fix in place</th></tr></thead>
+  <tbody>
+    <tr><td>Shoe photos</td><td><code>main-photo</code></td><td>The photo area is a fixed 260 px box. It keeps its height before, during and after the image arrives.</td></tr>
+    <tr><td>The price, or a web font for it, arriving late</td><td><code>price</code></td><td>The page uses only phone system fonts, so nothing swaps. The name, colorway, price and rating sit in a fixed 88 px block.</td></tr>
+    <tr><td>W / M / EU switch and the "Select size" row</td><td><code>size-grid</code> top</td><td>Fixed 48 px row.</td></tr>
+    <tr><td>The sizes themselves, which come in after the page shell</td><td><code>size-grid</code></td><td>The shell shows 26 empty boxes of the same size in the same spots. The numbers fill those boxes without moving them.</td></tr>
+    <tr><td>The "Only 3 left" line under the grid</td><td><code>size-grid</code> top</td><td>Fixed 32 px line that is always there. When it changes, only its text changes. Being below the grid, it couldn't push the grid anyway.</td></tr>
+    <tr><td>Sticky "Notify me" bar, sheets, gallery</td><td><code>size-grid</code> top</td><td>They sit on top of the page and take no room in it.</td></tr>
+  </tbody>
+</table></div>
+<p><strong>Still open: real product photos.</strong> Today the largest thing on the first screen is the colorway text, because the shoe is a drawing. When real photos arrive, they go inside the fixed 260 px box (for example <code>next/image</code> with <code>fill</code> and <code>priority</code> on the first one), and the recording and Lighthouse run again.</p>
+
+<h2>Key Claude Code prompt</h2>
+<blockquote>record the loading of the page in a pretend slow font using Chrome Dev Tools MCP. The font screen needs to be 375 x 812 CSS px viewport at 3x pixel density. The slowness should be a 4x CPU slowdown, 150 ms round trip, and we will be looking at the size grid of the size selection so that it's not jumping around and it is staying still. Also the network speed needs to be 1638.4 kbps so that the phone is slow 4G.</blockquote>
+
+<h3>What I checked or changed</h3>
+<ul>
+  <li>I checked the first <code>speed-budget.json</code> against the Web Platform mobile check profile. It held throttle settings instead of the profile's three keys, so I had it rewritten. I also had the repo renamed to <code>nike-pegasus-phone-page</code> to match the profile.</li>
+  <li>I raised <code>performance_score_min</code> from the required 90 to 95, since the page scored 99. I kept the grid shift at 0 px and the button size at 44 px.</li>
+</ul>
+
+<h3>What Claude Code checked and changed</h3>
+<ul>
+  <li><strong>Reading the prompt.</strong> "Font" was read as "phone"; the page loads no web fonts.</li>
+  <li><strong>Recording tool.</strong> Chrome DevTools MCP wasn't installed in that session. Claude Code drove Chrome with a Puppeteer script that uses the same DevTools throttling calls. The MCP has since been added.</li>
+  <li><strong>Testids.</strong> The five <code>data-testid</code>s were added to the page. The recording finds the grid by <code>[data-testid="size-grid"]</code>.</li>
+  <li><strong>Re-measuring.</strong> The page was measured with both the request's network values and the profile's values.</li>
+  <li><strong>Mismatch in the profile.</strong> The profile's header says to trace at 150 ms / 1638.4 kbps. Its settings block says a real slowed browser should use 562.5 ms / 1474.56 kbps. Both were run, and both gave 0 px.</li>
+</ul>
+
+</main>
+</body>
+</html>
