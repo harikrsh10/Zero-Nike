@@ -10,13 +10,13 @@ A 375 px phone product page for the Nike Pegasus 43 (Black/White-Volt, $140, lau
 
 ## Speed budget
 
-[`speed-budget.json`](speed-budget.json) sits at the repo root. It has exactly the three keys from the Web Platform Slow 4G mobile check profile, each set to the profile's required value.
+[`speed-budget.json`](speed-budget.json) sits at the repo root. It has exactly the three keys from the Web Platform Slow 4G mobile check profile and no others. The profile lets a page owner set a value stricter than required, so the score minimum is raised from 90 to 95. The other two keys are at their required values; 0 is already the strictest grid shift.
 
-| Key | Value | Measured on this page |
-|---|---|---|
-| `performance_score_min` | 90 | 99 (local Lighthouse run, see below) |
-| `size_grid_shift_px_max` | 0 | 0 px in every run |
-| `size_button_min_px` | 44 | 48 (every button is 62 × 48, sold-out ones included) |
+| Key | Value | Profile requires | Measured on this page |
+|---|---|---|---|
+| `performance_score_min` | 95 | 90 or higher | 99 (local Lighthouse run, see below) |
+| `size_grid_shift_px_max` | 0 | 0 | 0 px in every run |
+| `size_button_min_px` | 44 | 44 or higher | 48 (every button is 62 × 48, sold-out ones included) |
 
 The profile allows no extra or missing keys, so the throttle settings live in the check, not in this file.
 
@@ -77,6 +77,10 @@ Files are in `docs/recordings/2026-11-24-slow-phone-load/`:
 ### Key Claude Code prompt
 
 > record the loading of the page in a pretend slow font using Chrome Dev Tools MCP. The font screen needs to be 375 x 812 CSS px viewport at 3x pixel density. The slowness should be a 4x CPU slowdown, 150 ms round trip, and we will be looking at the size grid of the size selection so that it's not jumping around and it is staying still. Also the network speed needs to be 1638.4 kbps so that the phone is slow 4G.
+
+**What I checked or changed:**
+- I checked the first `speed-budget.json` against the Web Platform mobile check profile. It held throttle settings instead of the profile's three keys, so I had it rewritten. I also had the repo renamed to `nike-pegasus-phone-page` to match the profile.
+- I raised `performance_score_min` from the required 90 to 95, since the page scored 99. I kept the grid shift at 0 px and the button size at 44 px.
 
 **What Claude Code checked and changed:**
 - **Reading the prompt.** "Font" was read as "phone"; the page loads no web fonts.
