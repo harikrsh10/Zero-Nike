@@ -271,13 +271,16 @@ export function ProductPage({
                 const look = on
                   ? "border-ink bg-ink text-white"
                   : out
-                    ? "strike-diagonal border-soft bg-soft text-ink/40"
+                    ? "strike-diagonal border-soft bg-soft text-ink-3"
                     : "border-line bg-white text-ink";
+                // Second line in words, so stock shows as text and not only as a grey box or a dot.
+                const note = out ? "Sold out" : low ? `${row.stock_quantity} left` : null;
+                const noteColor = on ? "text-white" : out ? "text-ink-3" : "text-ink-2";
                 return (
                   <button
                     key={row.sku}
                     type="button"
-                    className={`relative h-12 min-w-0 cursor-pointer touch-manipulation rounded-lg border text-base font-medium tabular-nums transition-[background-color,border-color,transform] duration-100 active:scale-[0.97] motion-reduce:transition-none ${look}`}
+                    className={`relative flex h-12 min-w-0 cursor-pointer touch-manipulation flex-col items-center justify-center rounded-lg border text-base leading-5 font-medium tabular-nums transition-[background-color,border-color,transform] duration-100 active:scale-[0.97] motion-reduce:transition-none ${look}`}
                     data-testid={out ? "size-button-sold-out" : "size-button"}
                     aria-pressed={on}
                     aria-disabled={out || undefined}
@@ -285,6 +288,11 @@ export function ProductPage({
                     onClick={() => tapSize(row)}
                   >
                     {sizeNumber(row, mode)}
+                    {note && (
+                      <span className={`text-[11px] leading-3 font-medium whitespace-nowrap ${noteColor}`} aria-hidden="true">
+                        {note}
+                      </span>
+                    )}
                     {low && (
                       <span
                         className={`absolute top-1.5 right-1.5 size-1.5 rounded-full ${on ? "bg-volt" : "bg-low"}`}
