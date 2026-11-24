@@ -20,22 +20,26 @@ const { default: lighthouseConfig } = await import(
 );
 const { throttling, screenEmulation } = lighthouseConfig.settings;
 
-const chrome = await chromeLauncher.launch({
-  chromePath: process.env.CHROME_PATH,
-  chromeFlags: ["--headless=new", "--no-sandbox"],
-});
-
-let score, lhr;
-try {
-  const result = await lighthouse(url, { port: chrome.port, output: ["html", "json"], onlyCategories: ["performance"] }, lighthouseConfig);
-  lhr = result.lhr;
-  if (lhr.runtimeError) throw new Error(`Lighthouse: ${lhr.runtimeError.message}`);
-  score = Math.round(lhr.categories.performance.score * 100);
-  fs.writeFileSync(path.join(outDir, "lighthouse.html"), result.report[0]);
-  fs.writeFileSync(path.join(outDir, "lighthouse.json"), result.report[1]);
-} finally {
-  await chrome.kill();
+// One Lighthouse run swings by several points on a shared CI machine, so score the median of three.
+const RUNS = 3;
+const runs = [];
+for (let i = 0; i < RUNS; i++) {
+  const chrome = await chromeLauncher.launch({
+    chromePath: process.env.CHROME_PATH,
+    chromeFlags: ["--headless=new", "--no-sandbox"],
+  });
+  try {
+    const result = await lighthouse(url, { port: chrome.port, output: ["html", "json"], onlyCategories: ["performance"] }, lighthouseConfig);
+    if (result.lhr.runtimeError) throw new Error(`Lighthouse: ${result.lhr.runtimeError.message}`);
+    runs.push({ score: Math.round(result.lhr.categories.performance.score * 100), lhr: result.lhr, report: result.report });
+  } finally {
+    await chrome.kill();
+  }
 }
+const median = [...runs].sort((a, b) => a.score - b.score)[Math.floor(RUNS / 2)];
+const { score, lhr } = median;
+fs.writeFileSync(path.join(outDir, "lighthouse.html"), median.report[0]);
+fs.writeFileSync(path.join(outDir, "lighthouse.json"), median.report[1]);
 
 // Grid movement and button size need a real throttled load, sampled every frame.
 const browser = await puppeteer.launch({
@@ -108,7 +112,9 @@ const summary = [
   "|---|---|---|---|",
   ...rows.map(([key, limit, got, ok]) => `| \`${key}\` | ${limit} | ${got} | ${ok ? "pass" : "**fail**"} |`),
   "",
-  `First contentful paint ${metric("first-contentful-paint")}, largest contentful paint ${metric("largest-contentful-paint")}, total blocking time ${metric("total-blocking-time")}, layout shift ${metric("cumulative-layout-shift")}.`,
+  `Performance is the median of ${RUNS} runs: ${runs.map((r) => r.score).join(", ")}. Machine benchmark index: ${runs.map((r) => Math.round(r.lhr.environment.benchmarkIndex)).join(", ")} (lower is slower).`,
+  "",
+  `Median run: first contentful paint ${metric("first-contentful-paint")}, largest contentful paint ${metric("largest-contentful-paint")}, total blocking time ${metric("total-blocking-time")}, layout shift ${metric("cumulative-layout-shift")}.`,
   "",
 ].join("\n");
 
