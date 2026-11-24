@@ -92,11 +92,14 @@
   </tbody>
 </table></div>
 
+<h3>Checked on every deploy</h3>
+<p>Every production deploy is checked against this file. Vercel posts a status on each commit; when it turns green for <code>main</code>, the <a href="https://github.com/harikrsh10/nike-pegasus-phone-page/blob/main/.github/workflows/speed-budget.yml">Speed budget workflow</a> runs <a href="https://github.com/harikrsh10/nike-pegasus-phone-page/blob/main/scripts/budget-check/check.mjs">check.mjs</a> on the live URL. That runs Lighthouse with the same settings as the saved report for the score, then loads the page once more under the same throttling, sampling the grid's position every frame and measuring the smallest size button. The result goes on the commit as a "Speed budget" status: green within budget, red if any key fails, with the numbers in the run summary and the Lighthouse report attached.</p>
+<p>Before turning it on I made it fail on purpose twice: once on a test page where the grid jumps 40 px after load, and once with a budget that asked for 50 px buttons. Both runs failed on the right key and exited non-zero.</p>
+
 <h2>Slow-phone trace, 24 Nov 2026</h2>
 <p>I traced the production build in Chrome at 375 × 812 CSS px, 3x pixel density, with a 4x CPU slowdown. The profile gives two network settings, so I ran three fresh loads at each: 150 ms round trip at 1638.4 kbps, and 562.5 ms per request at 1474.56 kbps.</p>
 <div class="result">
   <p><strong>0 layout shifts in every run.</strong><br>The top of the size grid stayed at 440 px from first paint to fully loaded.</p>
-  <p>I later added an 8 px gap between the size switch and the grid, which puts the grid at 448 px. A rerun gave 0 shifts again.</p>
 </div>
 
 <figure>
@@ -111,11 +114,22 @@
   <li><a href="recordings/2026-11-24-slow-phone-load/record.mjs">record.mjs</a>, the script that made the recording</li>
 </ul>
 
+<h3>Rerun with the real photo</h3>
+<p>Since then the page has an 8 px gap between the size switch and the grid, which puts the grid at 448 px, and the drawn shoe is now a real photo. I ran all six loads again on that build.</p>
+<div class="result">
+  <p><strong>0 layout shifts in every run.</strong><br>The top of the size grid stayed at 448 px from first paint to fully loaded.</p>
+</div>
+<figure>
+  <img src="recordings/2026-11-24-slow-phone-load-photo/filmstrip.png" width="1173" height="812" alt="Three frames of the page loading with the real photo: blank, then first paint with an empty grey photo box and 26 empty size boxes, then the photo and the size numbers filling those same boxes. The red outline around the size grid is in the same place in both drawn frames.">
+  <figcaption>At first paint the photo box and the grid are both empty grey. The photo and the size numbers then fill those same boxes.</figcaption>
+</figure>
+<p>Files: <a href="recordings/2026-11-24-slow-phone-load-photo/trace.json">trace.json</a>, <a href="recordings/2026-11-24-slow-phone-load-photo/results.json">results.json</a>.</p>
+
 <h3>What could push the grid down, and what stops it</h3>
 <div class="table-wrap"><table>
   <thead><tr><th>Loads late</th><th>Watched as</th><th>What keeps the grid still</th></tr></thead>
   <tbody>
-    <tr><td>Shoe photos</td><td><code>main-photo</code></td><td>The photo area is a fixed 260 px box, the same height before and after the image arrives.</td></tr>
+    <tr><td>The shoe photo</td><td><code>main-photo</code></td><td>A fixed 260 px box. The photo is <code>next/image</code> with <code>fill</code>, so it takes the box's size, not its own. It's preloaded with high fetch priority; a phone at 3x gets a 1200 px WebP of about 23 KB.</td></tr>
     <tr><td>The price, or a web font for it</td><td><code>price</code></td><td>The page uses the phone's system fonts, so there's no font swap. Name, colorway, price and rating sit in a fixed 88 px block.</td></tr>
     <tr><td>The W / M / EU switch and "Select size" row</td><td><code>size-grid</code> top</td><td>A fixed 48 px row, then a fixed 8 px gap.</td></tr>
     <tr><td>The sizes, which stream in after the page shell</td><td><code>size-grid</code></td><td>The shell already has 26 empty boxes of the same size in the same places. The numbers fill them in.</td></tr>
@@ -123,7 +137,7 @@
     <tr><td>The sticky "Notify me" bar, sheets and the photo gallery</td><td><code>size-grid</code> top</td><td>They sit on top of the page and take up no room in it.</td></tr>
   </tbody>
 </table></div>
-<p>One thing is still open. The shoe is a drawing for now, so the largest thing on the first screen is the colorway text, while the profile expects <code>main-photo</code> to be the largest. Real photos need to go inside the 260 px box (<code>next/image</code> with <code>fill</code>, and <code>priority</code> on the first), and then the trace and Lighthouse should run again.</p>
+<p>With the photo in, <code>main-photo</code> is the largest thing on the first screen, as the profile expects. One thing is still open: the photo shows a white, navy and green colorway, while the page sells Black/White-Volt. It should be swapped for a Black/White-Volt shot before launch. The box and the checks won't need to change.</p>
 
 <h2>Lighthouse on the live page</h2>
 <p>Mobile Lighthouse 12.8.2 on the Vercel URL, with the profile's settings, on 24 Nov 2026:</p>
@@ -131,7 +145,7 @@
   <thead><tr><th>Performance</th><th>Accessibility</th><th>Best practices</th><th>SEO</th></tr></thead>
   <tbody><tr><td>99</td><td>100</td><td>100</td><td>100</td></tr></tbody>
 </table></div>
-<p>First contentful paint 1.0 s, largest contentful paint 1.9 s, total blocking time 110 ms, layout shift 0. Performance moves a point between runs: three runs in a row gave 99, 99 and 100, and the saved report is the first of them.</p>
+<p>That's with the real photo. First contentful paint 1.2 s, largest contentful paint 1.8 s (the photo), total blocking time 40 ms, layout shift 0. Performance moves a point between runs; before the photo, three runs in a row gave 99, 99 and 100.</p>
 <p>The first run scored 96 for accessibility. The small grey text under the fit scale and on the review bylines was <code>#8a8a8a</code>, 3.45:1 on white. It's now <code>#6b6b6b</code>, at 5.3:1. I also added "Sold out" and "N left" under the size numbers, so stock isn't shown by colour alone. The buttons stayed 62 × 48.</p>
 <p><a href="lighthouse/2026-11-24-live-mobile/report.html">Read the report</a>, or get the <a href="lighthouse/2026-11-24-live-mobile/report.json">JSON</a> and the <a href="lighthouse/2026-11-24-live-mobile/lighthouse-config.js">settings</a>.</p>
 

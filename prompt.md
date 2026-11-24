@@ -46,4 +46,8 @@ The first run scored 100 for performance, best practices and SEO, and 96 for acc
 
 After that I added "Sold out" and "N left" under the size numbers, in the same 62 × 48 box, and moved the sold-out number to the same `#6b6b6b` so it reads at 4.9:1 on its grey background. Later I added an 8 px gap between the size switch and the grid. The grid still loads with 0 layout shifts. The saved report is from after that change: Performance 99, the rest 100. Three runs in a row gave 99, 99 and 100 for performance.
 
+Then the drawn shoe was replaced with a real photo inside the same 260 px box. The trace still showed 0 layout shifts in all six runs, and the saved report is from that build: Performance 99, the rest 100, with the photo as the largest contentful paint at 1.8 s.
+
+Lighthouse now also runs on every production deploy through the [Speed budget workflow](.github/workflows/speed-budget.yml), which posts a pass or fail status on the commit. See the README for how it works.
+
 The report is online at https://harikrsh10.github.io/nike-pegasus-phone-page/lighthouse/2026-11-24-live-mobile/report.html, with the files in [`docs/lighthouse/2026-11-24-live-mobile/`](docs/lighthouse/2026-11-24-live-mobile/).
