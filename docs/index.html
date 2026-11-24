@@ -74,7 +74,7 @@
 <div class="table-wrap"><table>
   <thead><tr><th>Key</th><th>Value</th><th>Profile minimum</th><th>Measured</th></tr></thead>
   <tbody>
-    <tr><td><code>performance_score_min</code></td><td>95</td><td>90</td><td>100 on the live page</td></tr>
+    <tr><td><code>performance_score_min</code></td><td>95</td><td>90</td><td>99 to 100 on the live page</td></tr>
     <tr><td><code>size_grid_shift_px_max</code></td><td>0</td><td>0</td><td>0 px</td></tr>
     <tr><td><code>size_button_min_px</code></td><td>44</td><td>44</td><td>48. Every size button is 62 × 48, sold-out ones too.</td></tr>
   </tbody>
@@ -129,9 +129,9 @@
 <p>Mobile Lighthouse 12.8.2 on the Vercel URL, with the profile's settings, on 24 Nov 2026:</p>
 <div class="table-wrap"><table>
   <thead><tr><th>Performance</th><th>Accessibility</th><th>Best practices</th><th>SEO</th></tr></thead>
-  <tbody><tr><td>100</td><td>100</td><td>100</td><td>100</td></tr></tbody>
+  <tbody><tr><td>99</td><td>100</td><td>100</td><td>100</td></tr></tbody>
 </table></div>
-<p>First contentful paint 1.1 s, largest contentful paint 1.6 s, total blocking time 60 ms, layout shift 0.</p>
+<p>First contentful paint 1.0 s, largest contentful paint 1.9 s, total blocking time 110 ms, layout shift 0. Performance moves a point between runs: three runs in a row gave 99, 99 and 100, and the saved report is the first of them.</p>
 <p>The first run scored 96 for accessibility. The small grey text under the fit scale and on the review bylines was <code>#8a8a8a</code>, 3.45:1 on white. It's now <code>#6b6b6b</code>, at 5.3:1. I also added "Sold out" and "N left" under the size numbers, so stock isn't shown by colour alone. The buttons stayed 62 × 48.</p>
 <p><a href="lighthouse/2026-11-24-live-mobile/report.html">Read the report</a>, or get the <a href="lighthouse/2026-11-24-live-mobile/report.json">JSON</a> and the <a href="lighthouse/2026-11-24-live-mobile/lighthouse-config.js">settings</a>.</p>
 

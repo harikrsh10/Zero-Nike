@@ -31,7 +31,7 @@ These are the three keys the Web Platform Slow 4G mobile check profile asks for.
 
 | Key | Value | Profile minimum | Measured |
 |---|---|---|---|
-| `performance_score_min` | 95 | 90 | 100 on the live page |
+| `performance_score_min` | 95 | 90 | 99 to 100 on the live page |
 | `size_grid_shift_px_max` | 0 | 0 | 0 px |
 | `size_button_min_px` | 44 | 44 | 48. Every size button is 62 × 48, sold-out ones too. |
 
@@ -74,9 +74,9 @@ Mobile Lighthouse 12.8.2 on the Vercel URL, with the profile's settings, on 24 N
 
 | Performance | Accessibility | Best practices | SEO |
 |---|---|---|---|
-| 100 | 100 | 100 | 100 |
+| 99 | 100 | 100 | 100 |
 
-First contentful paint 1.1 s, largest contentful paint 1.6 s, total blocking time 60 ms, layout shift 0.
+First contentful paint 1.0 s, largest contentful paint 1.9 s, total blocking time 110 ms, layout shift 0. Performance moves a point between runs: three runs in a row gave 99, 99 and 100, and the saved report is the first of them.
 
 The first run scored 96 for accessibility. The small grey text under the fit scale and on the review bylines was `#8a8a8a`, 3.45:1 on white. It's now `#6b6b6b`, at 5.3:1. I also added "Sold out" and "N left" under the size numbers, so stock isn't shown by colour alone. The buttons stayed 62 × 48.
 

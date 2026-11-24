@@ -44,6 +44,6 @@ The live page was already on the 8 Dec snapshot when I asked: 9 sold out, 7 low,
 
 The first run scored 100 for performance, best practices and SEO, and 96 for accessibility. The small grey text was `#8a8a8a`, 3.45:1 on white. I changed it to `#6b6b6b` (5.3:1), and the rerun scored 100 in all four.
 
-After that I added "Sold out" and "N left" under the size numbers, in the same 62 × 48 box, and moved the sold-out number to the same `#6b6b6b` so it reads at 4.9:1 on its grey background. The grid still loads with 0 layout shifts, and the saved report is from after this change.
+After that I added "Sold out" and "N left" under the size numbers, in the same 62 × 48 box, and moved the sold-out number to the same `#6b6b6b` so it reads at 4.9:1 on its grey background. Later I added an 8 px gap between the size switch and the grid. The grid still loads with 0 layout shifts. The saved report is from after that change: Performance 99, the rest 100. Three runs in a row gave 99, 99 and 100 for performance.
 
 The report is online at https://harikrsh10.github.io/nike-pegasus-phone-page/lighthouse/2026-11-24-live-mobile/report.html, with the files in [`docs/lighthouse/2026-11-24-live-mobile/`](docs/lighthouse/2026-11-24-live-mobile/).
