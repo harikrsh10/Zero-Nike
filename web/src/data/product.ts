@@ -1,7 +1,6 @@
-// The size and stock list lives in the project folder, one level above web/.
 import sizesJson from "../../../Pegasus 43 size and stock list.json";
 
-/** Cookie that remembers her size system. Shared by server and client. */
+// Read on the server, written by the client.
 export const MODE_COOKIE = "pdp-size-mode";
 export type SizeMode = "W" | "M" | "EU";
 
@@ -37,11 +36,8 @@ export const product = {
   launchDate: first.launch_date,
 };
 
-/*
- * PLACEHOLDER CONTENT — replace with real values from the product team.
- * Specs, rating, fit data and reviews below are stand-ins so the layout
- * can be built and checked. None of it is real product or customer data.
- */
+// Specs, rating, fit and reviews below are made up to fill the layout.
+// Swap in real product and customer data before launch.
 export const specs = [
   { label: "Drop", value: "10 mm" },
   { label: "Weight", value: "≈ 280 g (M 10)" },

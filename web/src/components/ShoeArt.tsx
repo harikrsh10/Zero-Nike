@@ -1,4 +1,4 @@
-/* Placeholder artwork until real product photos arrive. */
+// Stand-in drawing until the real product photos arrive.
 type View = "side" | "other-side" | "top" | "sole" | "heel" | "detail";
 
 export const photoViews: { view: View; label: string }[] = [
@@ -63,7 +63,7 @@ export function ShoeArt({ view }: { view: View }) {
       break;
   }
   return (
-    <svg viewBox="0 0 300 180" role="img" aria-hidden="true">
+    <svg viewBox="0 0 300 180" aria-hidden="true">
       <g transform={transform}>
         <Shoe />
       </g>

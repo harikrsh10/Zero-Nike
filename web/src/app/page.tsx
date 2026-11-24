@@ -7,9 +7,7 @@ import { MODE_COOKIE, product, type SizeMode } from "@/data/product";
 type Search = Promise<{ [key: string]: string | string[] | undefined }>;
 
 export default function Page({ searchParams }: { searchParams: Search }) {
-  // The fallback is the same page laid out identically, so nothing shifts while
-  // the per-request bits stream in. Its size grid is empty and inert (ready=false),
-  // so she never reads a size number that later changes to a different one.
+  // The fallback has the same layout, so nothing shifts when the real page streams in.
   return (
     <Suspense fallback={<ProductPage prelaunch initialMode="M" ready={false} />}>
       <ResolvedPage searchParams={searchParams} />
@@ -20,14 +18,13 @@ export default function Page({ searchParams }: { searchParams: Search }) {
 async function ResolvedPage({ searchParams }: { searchParams: Search }) {
   const params = await searchParams;
 
-  // ?gender=w or ?gender=m comes from the link she arrived by (e.g. a women's listing).
-  // Otherwise use the size system she picked last time (cookie), else US Men's.
+  // ?gender= from the incoming link wins, then the saved cookie, then US Men's.
   const gender = typeof params.gender === "string" ? params.gender.toLowerCase() : "";
   const saved = (await cookies()).get(MODE_COOKIE)?.value;
   const initialMode: SizeMode =
     gender === "w" ? "W" : gender === "m" ? "M" : saved === "W" || saved === "M" || saved === "EU" ? saved : "M";
 
-  // Launch check runs per request. ?launched=1 previews the on-sale state early.
+  // ?launched=1 previews the on-sale state before launch day.
   await connection();
   const today = new Date().toISOString().slice(0, 10);
   const prelaunch = params.launched !== "1" && today < product.launchDate;

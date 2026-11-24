@@ -1,13 +1,5 @@
 "use client";
 
-/*
- * Pegasus 43 product page for a 375px phone.
- * Heights follow docs/plans/2026-11-23-pegasus-43-phone-page-plan.md:
- *   header 44 · photos 260 · title 88 · sizes 488 · tech 352 · reviews 548 · spacer 64
- * First fold (0–600): header, photos, title, size header and size rows 1–3.
- * Tech details and reviews come after the first fold.
- */
-
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Sheet, CloseIcon, iconBtn } from "./Sheet";
 import { ShoeArt, photoViews } from "./ShoeArt";
@@ -23,8 +15,6 @@ import {
   type SizeMode,
   type SizeRow,
 } from "@/data/product";
-
-export type { SizeMode };
 
 type SheetState =
   | { kind: "tech" }
@@ -44,12 +34,9 @@ function formatLaunch(iso: string) {
   return `${d} ${MONTHS[m - 1]}`;
 }
 
-/** 5.0 -> "5", 5.5 -> "5.5" */
-const num = (n: number) => String(n);
-
 function sizeNumber(row: SizeRow, mode: SizeMode) {
-  if (mode === "W") return num(row.size_us_women);
-  if (mode === "M") return num(row.size_us_men);
+  if (mode === "W") return String(row.size_us_women);
+  if (mode === "M") return String(row.size_us_men);
   return row.size_eu;
 }
 
@@ -73,12 +60,11 @@ function Stars({ value }: { value: number }) {
   );
 }
 
-/* Shared class strings */
 const outlineBtn =
   "h-12 w-full cursor-pointer rounded-full border border-ink bg-white text-[15px] font-semibold";
 const primaryBtn =
   "h-12 w-full cursor-pointer touch-manipulation rounded-full border-0 bg-ink text-base font-semibold text-white transition-transform duration-100 active:scale-[0.98] motion-reduce:transition-none";
-/** Grey divider (8) + bottom padding (24) = the plan's 32px of padding. */
+// 8px grey divider + 24px bottom padding.
 const sectionBox = "overflow-hidden border-t-8 border-soft px-4 pb-6";
 
 export function ProductPage({
@@ -88,7 +74,7 @@ export function ProductPage({
 }: {
   prelaunch: boolean;
   initialMode: SizeMode;
-  /** false while her size system is unknown: the grid shows empty, inert boxes. */
+  /** false in the streaming fallback, before the size system is known. */
   ready?: boolean;
 }) {
   const [mode, setMode] = useState<SizeMode>(initialMode);
@@ -111,7 +97,7 @@ export function ProductPage({
 
   const tapSize = (row: SizeRow) => {
     if (row.stock_status === "sold_out") {
-      // Sold-out sizes are never selected; she can ask to be told when it's back.
+      // Sold-out sizes can't be selected. Tapping one offers a restock email instead.
       setSheet({ kind: "notify", sku: row.sku, reason: "restock" });
       return;
     }
@@ -138,7 +124,6 @@ export function ProductPage({
   else if (!selected) primaryLabel = "Select a size";
   else primaryLabel = `${added ? "Added to cart" : "Add to cart"} · ${sizeName(selected, mode)}`;
 
-  // Status line under the buttons. "Only N left" shows only for a low-stock pick.
   let status: ReactNode = null;
   if (nudge) status = <span className="font-semibold text-ink">Pick a size first</span>;
   else if (selected?.stock_status === "low_stock")
@@ -158,7 +143,7 @@ export function ProductPage({
 
   return (
     <div className="mx-auto max-w-[480px] bg-white">
-      {/* 0. Header — 44px, scrolls away */}
+      {/* 44px */}
       <header className="flex h-11 items-center justify-between px-1">
         <button type="button" className={iconBtn} aria-label="Menu">
           <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
@@ -175,7 +160,7 @@ export function ProductPage({
       </header>
 
       <main>
-        {/* 1. Photos — 260px */}
+        {/* 260px */}
         <section className="relative h-[260px] bg-photo" aria-label="Photos">
           <div
             className="no-scrollbar flex h-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain"
@@ -210,7 +195,7 @@ export function ProductPage({
           </div>
         </section>
 
-        {/* 2. Name, colour, price, rating — 88px (12 + 24 + 20 + 24 + 8) */}
+        {/* 88px: 12 + 24 + 20 + 24 + 8 */}
         <section className="h-[88px] overflow-hidden px-4 pt-3 pb-2">
           <h1 className="m-0 h-6 truncate text-xl leading-6 font-semibold">{product.name}</h1>
           <p className="m-0 h-5 truncate text-sm leading-5 text-ink-2">
@@ -231,13 +216,12 @@ export function ProductPage({
           </div>
         </section>
 
-        {/* 3. Sizes — 488px (48 + 328 + 12 + 32 + 44 + 24) */}
+        {/* 488px: 48 + 328 + 12 + 32 + 44 + 24 */}
         <section className="h-[488px] scroll-mt-4 px-4 pb-6" ref={sizesRef} aria-labelledby="size-label">
           <div className="flex h-12 items-center justify-between">
             <h2 id="size-label" className="m-0 text-base font-semibold">
               Select size
             </h2>
-            {/* Switch fills the 48px row; each segment is a 44px-tall tap target. */}
             <div className="inline-flex h-12 rounded-xl bg-soft p-0.5" role="group" aria-label="Size system">
               {(["W", "M", "EU"] as SizeMode[]).map((m) => (
                 <button
@@ -273,7 +257,6 @@ export function ProductPage({
                   : out
                     ? "strike-diagonal border-soft bg-soft text-ink-3"
                     : "border-line bg-white text-ink";
-                // Second line in words, so stock shows as text and not only as a grey box or a dot.
                 const note = out ? "Sold out" : low ? `${row.stock_quantity} left` : null;
                 const noteColor = on ? "text-white" : out ? "text-ink-3" : "text-ink-2";
                 return (
@@ -304,7 +287,7 @@ export function ProductPage({
               })}
             </div>
           ) : (
-            // Same 26 boxes, same place, no numbers: nothing she can read changes later.
+            // Same 26 boxes in the same place, without numbers, so no size label changes after it's shown.
             <div className="grid h-[328px] auto-rows-[48px] grid-cols-5 content-start gap-2" data-testid="size-grid" aria-hidden="true" inert>
               {sizes.map((row) => (
                 <span key={row.sku} className="h-12 rounded-lg border border-line bg-soft" />
@@ -328,7 +311,7 @@ export function ProductPage({
           </button>
         </section>
 
-        {/* 4. Tech details — 352px (8 + 48 + 4×56 + 48 + 24) */}
+        {/* 352px: 8 + 48 + 4×56 + 48 + 24 */}
         <section className={`${sectionBox} h-[352px]`} aria-labelledby="tech-title">
           <div className="flex h-12 items-center">
             <h2 id="tech-title" className="m-0 text-lg font-semibold">
@@ -348,7 +331,7 @@ export function ProductPage({
           </button>
         </section>
 
-        {/* 5. Reviews — 548px (8 + 48 + 72 + 16 + 152 + 12 + 152 + 16 + 48 + 24) */}
+        {/* 548px: 8 + 48 + 72 + 16 + 152 + 12 + 152 + 16 + 48 + 24 */}
         <section id="reviews" className={`${sectionBox} h-[548px]`} aria-labelledby="reviews-title">
           <div className="flex h-12 items-center justify-between">
             <h2 id="reviews-title" className="m-0 text-lg font-semibold">
@@ -389,11 +372,10 @@ export function ProductPage({
           </button>
         </section>
 
-        {/* Spacer so the sticky bar never covers the last button */}
+        {/* Room for the sticky bar, so it never covers the last button */}
         <div className="h-[calc(64px+env(safe-area-inset-bottom))]" aria-hidden="true" />
       </main>
 
-      {/* Sticky button — 64px + safe area, sits on top of the page */}
       <div className="fixed inset-x-0 bottom-0 z-20 bg-white/95 px-4 pt-2 pb-[calc(8px+env(safe-area-inset-bottom))] shadow-[0_-1px_0_var(--color-line)]">
         <div className="mx-auto max-w-[448px]">
           <button type="button" className={primaryBtn} onClick={tapPrimary}>
@@ -402,7 +384,6 @@ export function ProductPage({
         </div>
       </div>
 
-      {/* Sheets open on top of the page, so no section height ever changes */}
       {sheet?.kind === "tech" && (
         <Sheet title="All details" onClose={closeSheet} full>
           {techCopy.map((t) => (
@@ -447,8 +428,8 @@ export function ProductPage({
             <tbody>
               {sizes.map((r) => (
                 <tr key={r.sku}>
-                  <td className="h-10 border-b border-line">{num(r.size_us_women)}</td>
-                  <td className="h-10 border-b border-line">{num(r.size_us_men)}</td>
+                  <td className="h-10 border-b border-line">{r.size_us_women}</td>
+                  <td className="h-10 border-b border-line">{r.size_us_men}</td>
                   <td className="h-10 border-b border-line">{r.size_eu}</td>
                 </tr>
               ))}
@@ -478,7 +459,7 @@ export function ProductPage({
   );
 }
 
-/** One review card: 152px (12 + 20 + 8 + 20 + 4 + 60 + 4 + 16 + 12, minus borders). */
+// 152px: 12 + 20 + 8 + 20 + 4 + 60 + 4 + 16 + 12, minus borders.
 function ReviewCard({ review }: { review: Review }) {
   return (
     <article className="h-[152px] overflow-hidden rounded-xl border border-line p-3">

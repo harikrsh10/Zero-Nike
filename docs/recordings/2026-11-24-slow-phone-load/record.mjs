@@ -104,7 +104,6 @@ await page.evaluateOnNewDocument((GRID) => {
   new MutationObserver(addCss).observe(document, { subtree: true, childList: true });
 }, GRID);
 
-// Video frames.
 const frames = [];
 cdp.on("Page.screencastFrame", async ({ data, metadata, sessionId }) => {
   const file = path.join(OUT, "frames", `f${String(frames.length).padStart(4, "0")}.jpg`);

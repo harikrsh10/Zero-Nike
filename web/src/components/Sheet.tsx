@@ -12,7 +12,6 @@ export function CloseIcon() {
 
 export const iconBtn = "grid size-11 shrink-0 cursor-pointer place-items-center border-0 bg-transparent p-0";
 
-/** Bottom sheet. Opens over the page so the page height never changes. */
 export function Sheet({
   title,
   onClose,
@@ -38,7 +37,7 @@ export function Sheet({
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
-      prevFocus?.focus?.();
+      prevFocus?.focus();
     };
   }, [onClose]);
 
