@@ -96,6 +96,7 @@
 <p>I traced the production build in Chrome at 375 × 812 CSS px, 3x pixel density, with a 4x CPU slowdown. The profile gives two network settings, so I ran three fresh loads at each: 150 ms round trip at 1638.4 kbps, and 562.5 ms per request at 1474.56 kbps.</p>
 <div class="result">
   <p><strong>0 layout shifts in every run.</strong><br>The top of the size grid stayed at 440 px from first paint to fully loaded.</p>
+  <p>I later added an 8 px gap between the size switch and the grid, which puts the grid at 448 px. A rerun gave 0 shifts again.</p>
 </div>
 
 <figure>
@@ -116,7 +117,7 @@
   <tbody>
     <tr><td>Shoe photos</td><td><code>main-photo</code></td><td>The photo area is a fixed 260 px box, the same height before and after the image arrives.</td></tr>
     <tr><td>The price, or a web font for it</td><td><code>price</code></td><td>The page uses the phone's system fonts, so there's no font swap. Name, colorway, price and rating sit in a fixed 88 px block.</td></tr>
-    <tr><td>The W / M / EU switch and "Select size" row</td><td><code>size-grid</code> top</td><td>A fixed 48 px row.</td></tr>
+    <tr><td>The W / M / EU switch and "Select size" row</td><td><code>size-grid</code> top</td><td>A fixed 48 px row, then a fixed 8 px gap.</td></tr>
     <tr><td>The sizes, which stream in after the page shell</td><td><code>size-grid</code></td><td>The shell already has 26 empty boxes of the same size in the same places. The numbers fill them in.</td></tr>
     <tr><td>The "Only 3 left" line</td><td><code>size-grid</code> top</td><td>A fixed 32 px line that's always there; only its text changes. It's under the grid, so it couldn't push it anyway.</td></tr>
     <tr><td>The sticky "Notify me" bar, sheets and the photo gallery</td><td><code>size-grid</code> top</td><td>They sit on top of the page and take up no room in it.</td></tr>

@@ -49,7 +49,7 @@ The check finds elements by `data-testid`. All five are on the page:
 
 I traced the production build in Chrome at 375 × 812 CSS px, 3x pixel density, with a 4x CPU slowdown. The profile gives two network settings, so I ran three fresh loads at each: 150 ms round trip at 1638.4 kbps, and 562.5 ms per request at 1474.56 kbps.
 
-**0 layout shifts in every run.** The top of the size grid stayed at 440 px from first paint to fully loaded.
+**0 layout shifts in every run.** The top of the size grid stayed at 440 px from first paint to fully loaded. I later added an 8 px gap between the size switch and the grid, which puts the grid at 448 px; a rerun gave 0 shifts again.
 
 In the filmstrip, the grid first appears as 26 empty grey boxes. About 300 ms later the size numbers fill the same boxes and nothing moves.
 
@@ -61,7 +61,7 @@ The recording folder has the videos at real speed and 4x slow motion, `filmstrip
 |---|---|---|
 | Shoe photos | `main-photo` | The photo area is a fixed 260 px box, the same height before and after the image arrives. |
 | The price, or a web font for it | `price` | The page uses the phone's system fonts, so there's no font swap. Name, colorway, price and rating sit in a fixed 88 px block. |
-| The W / M / EU switch and "Select size" row | `size-grid` top | A fixed 48 px row. |
+| The W / M / EU switch and "Select size" row | `size-grid` top | A fixed 48 px row, then a fixed 8 px gap. |
 | The sizes, which stream in after the page shell | `size-grid` | The shell already has 26 empty boxes of the same size in the same places. The numbers fill them in. |
 | The "Only 3 left" line | `size-grid` top | A fixed 32 px line that's always there; only its text changes. It's under the grid, so it couldn't push it anyway. |
 | The sticky "Notify me" bar, sheets and the photo gallery | `size-grid` top | They sit on top of the page and take up no room in it. |

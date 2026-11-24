@@ -216,7 +216,7 @@ export function ProductPage({
           </div>
         </section>
 
-        {/* 488px: 48 + 328 + 12 + 32 + 44 + 24 */}
+        {/* 488px: 48 + 8 + 328 + 4 + 32 + 44 + 24 */}
         <section className="h-[488px] scroll-mt-4 px-4 pb-6" ref={sizesRef} aria-labelledby="size-label">
           <div className="flex h-12 items-center justify-between">
             <h2 id="size-label" className="m-0 text-base font-semibold">
@@ -243,7 +243,7 @@ export function ProductPage({
 
           {ready ? (
             <div
-              className="grid h-[328px] auto-rows-[48px] grid-cols-5 content-start gap-2"
+              className="mt-2 grid h-[328px] auto-rows-[48px] grid-cols-5 content-start gap-2"
               role="group"
               aria-labelledby="size-label"
               data-testid="size-grid"
@@ -288,7 +288,7 @@ export function ProductPage({
             </div>
           ) : (
             // Same 26 boxes in the same place, without numbers, so no size label changes after it's shown.
-            <div className="grid h-[328px] auto-rows-[48px] grid-cols-5 content-start gap-2" data-testid="size-grid" aria-hidden="true" inert>
+            <div className="mt-2 grid h-[328px] auto-rows-[48px] grid-cols-5 content-start gap-2" data-testid="size-grid" aria-hidden="true" inert>
               {sizes.map((row) => (
                 <span key={row.sku} className="h-12 rounded-lg border border-line bg-soft" />
               ))}
@@ -296,7 +296,7 @@ export function ProductPage({
           )}
 
           <div
-            className="mt-3 flex h-8 items-center gap-2 overflow-hidden text-sm whitespace-nowrap text-ink-2"
+            className="mt-1 flex h-8 items-center gap-2 overflow-hidden text-sm whitespace-nowrap text-ink-2"
             role="status"
             aria-live="polite"
           >
