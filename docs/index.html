@@ -72,7 +72,7 @@
 <div class="table-wrap"><table>
   <thead><tr><th>Key</th><th>Value</th><th>Profile requires</th><th>Measured on this page</th></tr></thead>
   <tbody>
-    <tr><td><code>performance_score_min</code></td><td>95</td><td>90 or higher</td><td>99 (local Lighthouse run)</td></tr>
+    <tr><td><code>performance_score_min</code></td><td>95</td><td>90 or higher</td><td>100 on the live Vercel page (99 locally)</td></tr>
     <tr><td><code>size_grid_shift_px_max</code></td><td>0</td><td>0</td><td>0 px in every run</td></tr>
     <tr><td><code>size_button_min_px</code></td><td>44</td><td>44 or higher</td><td>48 (every button is 62 × 48, sold-out ones included)</td></tr>
   </tbody>
@@ -117,6 +117,15 @@
 
 <h3>Lighthouse</h3>
 <p>A local Lighthouse 12.8.2 mobile run with the profile's <code>lighthouse_settings</code> scored <strong>99</strong>: cumulative layout shift 0, first contentful paint 0.8 s, largest contentful paint 2.0 s. That run was on the production build on a local machine, not the live Vercel page.</p>
+
+<h3>Lighthouse on the live Vercel page</h3>
+<p>Mobile Lighthouse 12.8.2 on <a href="https://web-indol-ten-52.vercel.app/">web-indol-ten-52.vercel.app</a>, 24 Nov 2026, with the same profile settings, scored:</p>
+<ul>
+  <li><strong>Performance 100</strong>: first contentful paint 0.8 s, largest contentful paint 1.5 s, total blocking time 10 ms, cumulative layout shift 0.</li>
+  <li>Accessibility 96, Best practices 100, SEO 100.</li>
+</ul>
+<p>Accessibility lost points on one check: the 11–12 px grey text in the fit scale ("Small", "Large") and the review bylines is 3.45:1 contrast, under the 4.5:1 minimum. The size grid passed.</p>
+<p>Full report: <a href="lighthouse/2026-11-24-live-mobile/report.html">report.html</a> · <a href="lighthouse/2026-11-24-live-mobile/report.json">report.json</a> · <a href="lighthouse/2026-11-24-live-mobile/lighthouse-config.js">settings</a></p>
 
 <h3>Recording files</h3>
 <ul class="links">
