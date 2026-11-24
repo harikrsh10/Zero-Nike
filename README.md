@@ -5,7 +5,7 @@ A 375 px phone product page for the Nike Pegasus 43 (Black/White-Volt, $140, lau
 Notes page: https://harikrsh10.github.io/nike-pegasus-phone-page/
 
 - `web/` is the Next.js app. Run it with `npm --prefix web run dev -- -p 3043`.
-- `Pegasus 43 size and stock list.json` holds the 26 sizes and their stock.
+- `Pegasus 43 size and stock list.json` holds the 26 sizes and their stock, from the 8 Dec 2026 snapshot (17 sizes on sale, 7 of them low; 9 sold out; 815 pairs).
 - `docs/plans/` has the page plan and the size selector plan.
 - `docs/recordings/2026-11-24-slow-phone-load/` has the slow-phone load recording.
 - `speed-budget.json` is the speed budget the launch check reads.
@@ -29,8 +29,8 @@ The page renders all five `data-testid`s the profile lists:
 | `data-testid` | On | Count found |
 |---|---|---|
 | `size-grid` | The size grid. The empty placeholder grid uses the same testid, and only one of the two is ever on the page. | 1 |
-| `size-button` | Each in-stock or low-stock size | 22 |
-| `size-button-sold-out` | Each sold-out size. These stay in the grid at full size. | 4 |
+| `size-button` | Each in-stock or low-stock size | 17 |
+| `size-button-sold-out` | Each sold-out size. These stay in the grid at full size. | 9 |
 | `main-photo` | The first photo slide | 1 |
 | `price` | The $140 price | 1 |
 
