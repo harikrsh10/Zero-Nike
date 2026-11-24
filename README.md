@@ -1,4 +1,4 @@
-# Zero-Nike: Pegasus 43 phone page
+# nike-pegasus-phone-page: Pegasus 43 phone page
 
 A 375 px phone product page for the Nike Pegasus 43 (Black/White-Volt, $140, launches 10 Dec 2026).
 
