@@ -6,7 +6,7 @@
   --color-ink-3: #6b6b6b; /* 5.3:1 on white, 4.6:1 on the photo grey */
   --color-line: #e2e2e2;
   --color-soft: #f5f5f5;
-  --color-photo: #eeeeec;
+  --color-photo: #f1f1f1; /* matches the product photo background */
   --color-low: #ea7a0c; /* the small orange "few left" dot */
   --color-volt: #d4f05a;
 

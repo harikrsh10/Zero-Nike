@@ -1,0 +1,659 @@
+{
+ "note": "Production build with the real product photo. 375x812 at 3x, 4x CPU. Runs a1-a3: 150 ms / 1638.4 kbps. Runs b1-b3: 562.5 ms / 1474.56 kbps.",
+ "runs": {
+  "a1": {
+   "settings": {
+    "url": "http://localhost:3044/",
+    "phone": {
+     "width": 375,
+     "height": 812,
+     "deviceScaleFactor": 3,
+     "isMobile": true,
+     "hasTouch": true
+    },
+    "cpuSlowdown": 4,
+    "rttMs": 150,
+    "downKbps": 1638.4,
+    "upKbps": 675
+   },
+   "layout_shifts": [],
+   "grid_tops_px": [
+    448
+   ],
+   "smallest_button_px": 48,
+   "watched": {
+    "size-grid": 1,
+    "size-button": 17,
+    "size-button-sold-out": 9,
+    "main-photo": 1,
+    "price": 1
+   },
+   "paints": [
+    {
+     "name": "first-paint",
+     "t": 1244
+    },
+    {
+     "name": "first-contentful-paint",
+     "t": 1244
+    }
+   ],
+   "grid_samples": [
+    {
+     "t": 1024.7,
+     "why": "dom",
+     "top": 282.04,
+     "left": 8,
+     "width": 359,
+     "height": 0,
+     "boxes": 26,
+     "firstBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "lastBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 1208,
+     "why": "frame",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 1517.5,
+     "why": "dom",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "sizes",
+     "firstLabel": "3.51 left"
+    }
+   ]
+  },
+  "a2": {
+   "settings": {
+    "url": "http://localhost:3044/",
+    "phone": {
+     "width": 375,
+     "height": 812,
+     "deviceScaleFactor": 3,
+     "isMobile": true,
+     "hasTouch": true
+    },
+    "cpuSlowdown": 4,
+    "rttMs": 150,
+    "downKbps": 1638.4,
+    "upKbps": 675
+   },
+   "layout_shifts": [],
+   "grid_tops_px": [
+    448
+   ],
+   "smallest_button_px": 48,
+   "watched": {
+    "size-grid": 1,
+    "size-button": 17,
+    "size-button-sold-out": 9,
+    "main-photo": 1,
+    "price": 1
+   },
+   "paints": [
+    {
+     "name": "first-paint",
+     "t": 1244
+    },
+    {
+     "name": "first-contentful-paint",
+     "t": 1244
+    }
+   ],
+   "grid_samples": [
+    {
+     "t": 944.2,
+     "why": "dom",
+     "top": 282.04,
+     "left": 8,
+     "width": 359,
+     "height": 0,
+     "boxes": 26,
+     "firstBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "lastBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 1216.5,
+     "why": "frame",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 1536,
+     "why": "dom",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "sizes",
+     "firstLabel": "3.51 left"
+    }
+   ]
+  },
+  "a3": {
+   "settings": {
+    "url": "http://localhost:3044/",
+    "phone": {
+     "width": 375,
+     "height": 812,
+     "deviceScaleFactor": 3,
+     "isMobile": true,
+     "hasTouch": true
+    },
+    "cpuSlowdown": 4,
+    "rttMs": 150,
+    "downKbps": 1638.4,
+    "upKbps": 675
+   },
+   "layout_shifts": [],
+   "grid_tops_px": [
+    448
+   ],
+   "smallest_button_px": 48,
+   "watched": {
+    "size-grid": 1,
+    "size-button": 17,
+    "size-button-sold-out": 9,
+    "main-photo": 1,
+    "price": 1
+   },
+   "paints": [
+    {
+     "name": "first-paint",
+     "t": 1280
+    },
+    {
+     "name": "first-contentful-paint",
+     "t": 1280
+    }
+   ],
+   "grid_samples": [
+    {
+     "t": 982.5,
+     "why": "dom",
+     "top": 282.04,
+     "left": 8,
+     "width": 359,
+     "height": 0,
+     "boxes": 26,
+     "firstBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "lastBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 1252.6,
+     "why": "frame",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 1573.9,
+     "why": "dom",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "sizes",
+     "firstLabel": "3.51 left"
+    }
+   ]
+  },
+  "b1": {
+   "settings": {
+    "url": "http://localhost:3044/",
+    "phone": {
+     "width": 375,
+     "height": 812,
+     "deviceScaleFactor": 3,
+     "isMobile": true,
+     "hasTouch": true
+    },
+    "cpuSlowdown": 4,
+    "rttMs": 562.5,
+    "downKbps": 1474.56,
+    "upKbps": 675
+   },
+   "layout_shifts": [],
+   "grid_tops_px": [
+    448
+   ],
+   "smallest_button_px": 48,
+   "watched": {
+    "size-grid": 1,
+    "size-button": 17,
+    "size-button-sold-out": 9,
+    "main-photo": 1,
+    "price": 1
+   },
+   "paints": [
+    {
+     "name": "first-paint",
+     "t": 1740
+    },
+    {
+     "name": "first-contentful-paint",
+     "t": 1740
+    }
+   ],
+   "grid_samples": [
+    {
+     "t": 1010.3,
+     "why": "dom",
+     "top": 282.04,
+     "left": 8,
+     "width": 359,
+     "height": 0,
+     "boxes": 26,
+     "firstBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "lastBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 1710.6,
+     "why": "frame",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 2021.4,
+     "why": "dom",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "sizes",
+     "firstLabel": "3.51 left"
+    }
+   ]
+  },
+  "b2": {
+   "settings": {
+    "url": "http://localhost:3044/",
+    "phone": {
+     "width": 375,
+     "height": 812,
+     "deviceScaleFactor": 3,
+     "isMobile": true,
+     "hasTouch": true
+    },
+    "cpuSlowdown": 4,
+    "rttMs": 562.5,
+    "downKbps": 1474.56,
+    "upKbps": 675
+   },
+   "layout_shifts": [],
+   "grid_tops_px": [
+    448
+   ],
+   "smallest_button_px": 48,
+   "watched": {
+    "size-grid": 1,
+    "size-button": 17,
+    "size-button-sold-out": 9,
+    "main-photo": 1,
+    "price": 1
+   },
+   "paints": [
+    {
+     "name": "first-paint",
+     "t": 2080
+    },
+    {
+     "name": "first-contentful-paint",
+     "t": 2080
+    }
+   ],
+   "grid_samples": [
+    {
+     "t": 1339.6,
+     "why": "dom",
+     "top": 282.04,
+     "left": 8,
+     "width": 359,
+     "height": 0,
+     "boxes": 26,
+     "firstBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "lastBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 2046.9,
+     "why": "frame",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 2313.1,
+     "why": "dom",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "sizes",
+     "firstLabel": "3.51 left"
+    }
+   ]
+  },
+  "b3": {
+   "settings": {
+    "url": "http://localhost:3044/",
+    "phone": {
+     "width": 375,
+     "height": 812,
+     "deviceScaleFactor": 3,
+     "isMobile": true,
+     "hasTouch": true
+    },
+    "cpuSlowdown": 4,
+    "rttMs": 562.5,
+    "downKbps": 1474.56,
+    "upKbps": 675
+   },
+   "layout_shifts": [],
+   "grid_tops_px": [
+    448
+   ],
+   "smallest_button_px": 48,
+   "watched": {
+    "size-grid": 1,
+    "size-button": 17,
+    "size-button-sold-out": 9,
+    "main-photo": 1,
+    "price": 1
+   },
+   "paints": [
+    {
+     "name": "first-paint",
+     "t": 2132
+    },
+    {
+     "name": "first-contentful-paint",
+     "t": 2132
+    }
+   ],
+   "grid_samples": [
+    {
+     "t": 1391.8,
+     "why": "dom",
+     "top": 282.04,
+     "left": 8,
+     "width": 359,
+     "height": 0,
+     "boxes": 26,
+     "firstBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "lastBox": [
+      8,
+      282.04,
+      0,
+      0
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 2094,
+     "why": "frame",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "placeholder",
+     "firstLabel": ""
+    },
+    {
+     "t": 2309.4,
+     "why": "dom",
+     "top": 448,
+     "left": 16,
+     "width": 343,
+     "height": 328,
+     "boxes": 26,
+     "firstBox": [
+      16,
+      448,
+      62.2,
+      48
+     ],
+     "lastBox": [
+      16,
+      728,
+      62.2,
+      48
+     ],
+     "numbers": "sizes",
+     "firstLabel": "3.51 left"
+    }
+   ]
+  }
+ }
+}

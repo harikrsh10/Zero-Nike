@@ -1,0 +1,67 @@
+name: Speed budget
+
+# Vercel reports each deploy as a commit status, so this runs when that status turns green.
+on:
+  status:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Page to check
+        default: https://web-indol-ten-52.vercel.app/
+
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: speed-budget
+  cancel-in-progress: true
+
+jobs:
+  check:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.context == 'Vercel' && github.event.state == 'success' &&
+       contains(github.event.branches.*.name, 'main'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PAGE_URL: ${{ inputs.url || 'https://web-indol-ten-52.vercel.app/' }}
+      SHA: ${{ github.event.sha || github.sha }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.sha || github.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: scripts/budget-check/package-lock.json
+
+      - run: npm ci
+        working-directory: scripts/budget-check
+
+      - name: Mark the commit as being checked
+        run: |
+          gh api "repos/${{ github.repository }}/statuses/$SHA" -f state=pending -f context="Speed budget" \
+            -f description="Checking $PAGE_URL" -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Check the page against speed-budget.json
+        id: check
+        working-directory: scripts/budget-check
+        run: CHROME_PATH="$(which google-chrome)" node check.mjs "$PAGE_URL" "$GITHUB_WORKSPACE/budget-check-out"
+
+      - name: Report the result on the commit
+        if: always()
+        run: |
+          if [ "${{ steps.check.outcome }}" = "success" ]; then state=success; desc="Within speed-budget.json"; else state=failure; desc="Over speed-budget.json, see the run summary"; fi
+          gh api "repos/${{ github.repository }}/statuses/$SHA" -f state=$state -f context="Speed budget" \
+            -f description="$desc" -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: speed-budget-report
+          path: budget-check-out/

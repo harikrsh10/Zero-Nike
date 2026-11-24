@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Sheet, CloseIcon, iconBtn } from "./Sheet";
-import { ShoeArt, photoViews } from "./ShoeArt";
+import Image from "next/image";
 import {
   MODE_COOKIE,
+  photos,
   product,
   ratingSummary,
   reviews,
@@ -169,30 +170,42 @@ export function ProductPage({
               setPhoto(Math.round(el.scrollLeft / el.clientWidth));
             }}
           >
-            {photoViews.map((p, i) => (
+            {photos.map((p, i) => (
               <button
-                key={p.view}
+                key={p.alt}
                 type="button"
-                className="grid h-full shrink-0 basis-full cursor-zoom-in snap-center place-items-center border-0 bg-transparent p-0 [&_svg]:h-auto [&_svg]:w-[78%]"
+                className="relative h-full shrink-0 basis-full cursor-zoom-in snap-center border-0 bg-transparent p-0"
                 onClick={() => setGallery(i)}
                 data-testid={i === 0 ? "main-photo" : undefined}
-                aria-label={`${p.label}, photo ${i + 1} of ${photoViews.length}. Open full screen`}
+                aria-label={`${p.alt}${photos.length > 1 ? `, photo ${i + 1} of ${photos.length}` : ""}. Open full screen`}
               >
-                <ShoeArt view={p.view} />
+                <Image
+                  src={p.src}
+                  alt=""
+                  fill
+                  preload={i === 0}
+                  fetchPriority={i === 0 ? "high" : undefined}
+                  sizes="(max-width: 480px) 100vw, 480px"
+                  className="object-cover object-[50%_52%]"
+                />
               </button>
             ))}
           </div>
-          <span
-            className="absolute top-3 right-3 rounded-full bg-white/85 px-2 py-0.5 text-xs tabular-nums"
-            aria-hidden="true"
-          >
-            {photo + 1}/{photoViews.length}
-          </span>
-          <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center gap-1.5" aria-hidden="true">
-            {photoViews.map((p, i) => (
-              <span key={p.view} className={`size-1.5 rounded-full ${i === photo ? "bg-ink" : "bg-ink/25"}`} />
-            ))}
-          </div>
+          {photos.length > 1 && (
+            <>
+              <span
+                className="absolute top-3 right-3 rounded-full bg-white/85 px-2 py-0.5 text-xs tabular-nums"
+                aria-hidden="true"
+              >
+                {photo + 1}/{photos.length}
+              </span>
+              <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center gap-1.5" aria-hidden="true">
+                {photos.map((p, i) => (
+                  <span key={p.alt} className={`size-1.5 rounded-full ${i === photo ? "bg-ink" : "bg-ink/25"}`} />
+                ))}
+              </div>
+            </>
+          )}
         </section>
 
         {/* 88px: 12 + 24 + 20 + 24 + 8 */}
@@ -533,9 +546,7 @@ function Gallery({ start, onClose }: { start: number; onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-photo" role="dialog" aria-modal="true" aria-label="Photos">
       <div className="flex h-14 shrink-0 items-center justify-between pl-4 pr-1 text-sm tabular-nums">
-        <span>
-          {index + 1} / {photoViews.length}
-        </span>
+        <span>{photos.length > 1 && `${index + 1} / ${photos.length}`}</span>
         <button type="button" className={iconBtn} onClick={onClose} aria-label="Close photos" autoFocus>
           <CloseIcon />
         </button>
@@ -548,12 +559,9 @@ function Gallery({ start, onClose }: { start: number; onClose: () => void }) {
           setIndex(Math.round(el.scrollLeft / el.clientWidth));
         }}
       >
-        {photoViews.map((p) => (
-          <div
-            key={p.view}
-            className="grid shrink-0 basis-full snap-center place-items-center touch-pinch-zoom [&_svg]:h-auto [&_svg]:w-[92%]"
-          >
-            <ShoeArt view={p.view} />
+        {photos.map((p) => (
+          <div key={p.alt} className="relative shrink-0 basis-full snap-center touch-pinch-zoom">
+            <Image src={p.src} alt={p.alt} fill sizes="(max-width: 480px) 100vw, 480px" className="object-contain" />
           </div>
         ))}
       </div>

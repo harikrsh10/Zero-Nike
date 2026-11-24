@@ -1,4 +1,6 @@
+import type { StaticImageData } from "next/image";
 import sizesJson from "../../../Pegasus 43 size and stock list.json";
+import sidePhoto from "@/assets/pegasus-43-side.png";
 
 // Read on the server, written by the client.
 export const MODE_COOKIE = "pdp-size-mode";
@@ -35,6 +37,10 @@ export const product = {
   price: first.price,
   launchDate: first.launch_date,
 };
+
+export const photos: { src: StaticImageData; alt: string }[] = [
+  { src: sidePhoto, alt: "Pegasus 43, side view" },
+];
 
 // Specs, rating, fit and reviews below are made up to fill the layout.
 // Swap in real product and customer data before launch.
