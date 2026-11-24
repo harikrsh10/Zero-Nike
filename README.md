@@ -55,9 +55,9 @@ At first paint, the grid shows 26 empty grey boxes. About 300 ms later, the size
 That run was on the production build on this Mac, not the live Vercel page that the launch check scores.
 
 **Lighthouse on the live Vercel page:** mobile Lighthouse 12.8.2 on https://web-indol-ten-52.vercel.app/ (24 Nov 2026, same profile settings):
-- **Performance 100**: first contentful paint 0.8 s, largest contentful paint 1.5 s, total blocking time 10 ms, cumulative layout shift 0.
-- Accessibility 96, Best practices 100, SEO 100.
-- Accessibility lost points on color contrast: the 11–12 px grey text in the fit scale ("Small", "Large") and the review bylines is 3.45:1, under 4.5:1. The size grid passed.
+- **Performance 100**: first contentful paint 1.0 s, largest contentful paint 1.5 s, total blocking time 70 ms, cumulative layout shift 0.
+- **Accessibility 100**, Best practices 100, SEO 100.
+- The first run scored Accessibility 96: the 11–12 px grey text in the fit scale ("Small", "Large") and the review bylines was `#8a8a8a`, 3.45:1 on white, under 4.5:1. That grey is now `#6b6b6b` (5.3:1), and the saved report is the rerun after the fix.
 - Report: [view online](https://harikrsh10.github.io/nike-pegasus-phone-page/lighthouse/2026-11-24-live-mobile/report.html) · files in [`docs/lighthouse/2026-11-24-live-mobile/`](docs/lighthouse/2026-11-24-live-mobile/) (`report.html`, `report.json`, `lighthouse-config.js`).
 
 Files are in `docs/recordings/2026-11-24-slow-phone-load/`:
