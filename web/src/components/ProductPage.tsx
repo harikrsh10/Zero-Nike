@@ -190,6 +190,7 @@ export function ProductPage({
                 type="button"
                 className="grid h-full shrink-0 basis-full cursor-zoom-in snap-center place-items-center border-0 bg-transparent p-0 [&_svg]:h-auto [&_svg]:w-[78%]"
                 onClick={() => setGallery(i)}
+                data-testid={i === 0 ? "main-photo" : undefined}
                 aria-label={`${p.label}, photo ${i + 1} of ${photoViews.length}. Open full screen`}
               >
                 <ShoeArt view={p.view} />
@@ -217,7 +218,7 @@ export function ProductPage({
             {prelaunch ? ` · Launches ${launch}` : ""}
           </p>
           <div className="flex h-6 items-center justify-between">
-            <span className="text-lg font-semibold tabular-nums">${product.price.toFixed(0)}</span>
+            <span className="text-lg font-semibold tabular-nums" data-testid="price">${product.price.toFixed(0)}</span>
             <a
               className="-my-2.5 -mr-2 inline-flex h-11 items-center gap-1 px-2 text-sm tabular-nums text-ink no-underline"
               href="#reviews"
@@ -261,6 +262,7 @@ export function ProductPage({
               className="grid h-[328px] auto-rows-[48px] grid-cols-5 content-start gap-2"
               role="group"
               aria-labelledby="size-label"
+              data-testid="size-grid"
             >
               {sizes.map((row) => {
                 const out = row.stock_status === "sold_out";
@@ -276,6 +278,7 @@ export function ProductPage({
                     key={row.sku}
                     type="button"
                     className={`relative h-12 min-w-0 cursor-pointer touch-manipulation rounded-lg border text-base font-medium tabular-nums transition-[background-color,border-color,transform] duration-100 active:scale-[0.97] motion-reduce:transition-none ${look}`}
+                    data-testid={out ? "size-button-sold-out" : "size-button"}
                     aria-pressed={on}
                     aria-disabled={out || undefined}
                     aria-label={spokenSize(row, mode)}
@@ -294,7 +297,7 @@ export function ProductPage({
             </div>
           ) : (
             // Same 26 boxes, same place, no numbers: nothing she can read changes later.
-            <div className="grid h-[328px] auto-rows-[48px] grid-cols-5 content-start gap-2" aria-hidden="true" inert>
+            <div className="grid h-[328px] auto-rows-[48px] grid-cols-5 content-start gap-2" data-testid="size-grid" aria-hidden="true" inert>
               {sizes.map((row) => (
                 <span key={row.sku} className="h-12 rounded-lg border border-line bg-soft" />
               ))}

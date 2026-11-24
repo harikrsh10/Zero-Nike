@@ -10,12 +10,14 @@ fs.mkdirSync(path.join(OUT, "frames"), { recursive: true });
 
 const PHONE = { width: 375, height: 812, deviceScaleFactor: 3, isMobile: true, hasTouch: true };
 const CPU_SLOWDOWN = 4;
-const RTT_MS = 150;
-const DOWN_KBPS = 1638.4; // Slow 4G (Lighthouse mobile)
-const UP_KBPS = 675; // Lighthouse's upload figure for the same profile
+// Defaults: Slow 4G as written in the request (150 ms, 1638.4 kbps).
+// The mobile check profile's DevTools values are RTT_MS=562.5 DOWN_KBPS=1474.56.
+const RTT_MS = Number(process.env.RTT_MS ?? 150);
+const DOWN_KBPS = Number(process.env.DOWN_KBPS ?? 1638.4);
+const UP_KBPS = 675; // Lighthouse's upload figure for Slow 4G
 const kbpsToBytes = (k) => (k * 1024) / 8;
 
-const GRID = "div.grid-cols-5.h-\\[328px\\]";
+const GRID = '[data-testid="size-grid"]';
 
 const browser = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -133,6 +135,18 @@ const result = await page.evaluate(() => ({
   nav: performance.getEntriesByType("navigation")[0]?.toJSON(),
   paints: performance.getEntriesByType("paint").map((p) => ({ name: p.name, t: +p.startTime.toFixed(1) })),
   dpr: devicePixelRatio,
+  watched: Object.fromEntries(
+    ["size-grid", "size-button", "size-button-sold-out", "main-photo", "price"].map((id) => [
+      id,
+      document.querySelectorAll(`[data-testid="${id}"]`).length,
+    ]),
+  ),
+  smallestButtonPx: Math.min(
+    ...[...document.querySelectorAll('[data-testid="size-button"],[data-testid="size-button-sold-out"]')].map((b) => {
+      const r = b.getBoundingClientRect();
+      return Math.min(r.width, r.height);
+    }),
+  ),
   viewport: [innerWidth, innerHeight],
 }));
 await browser.close();
